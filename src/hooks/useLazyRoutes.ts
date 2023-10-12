@@ -16,6 +16,10 @@ interface LazyRoutesInterface {
  */
 const useLazyRoutes = (routesConfig: RoutesConfigInterface[]): LazyRoutesInterface[] => {
   const pagesImporters = import.meta.glob<boolean, string, { default: ComponentType<any> }>('@/pages/*/index.tsx');
+  //console.log(routesConfig);
+  
+  //console.log(pagesImporters);
+  
 
   const lazyRoutes: LazyRoutesInterface[] = routesConfig.map(({ pathname, componentPath }) => {
     const Component = lazy(pagesImporters[componentPath]);
