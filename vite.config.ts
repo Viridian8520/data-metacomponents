@@ -10,6 +10,15 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),  // 配置别名
     }
   },
+  css: {
+    // 配置 css-module
+    modules: {
+      // 开启 camelCase 格式变量名转换
+      localsConvention: 'camelCase',
+      // 类名 前缀
+      generateScopedName: '[local]-[hash:base64:5]',
+    },
+  },
   server: {
     port: 3000,
     open: true,
