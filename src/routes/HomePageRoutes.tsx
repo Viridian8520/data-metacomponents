@@ -8,7 +8,7 @@ import type { FC, ReactElement } from 'react';
 
 const HomePageRouters: FC = (): ReactElement => {
     const lazyRoutes = useLazyRoutes(routesConfig);
-    console.log(routesConfig);
+    //console.log(routesConfig);
     
 
     return (

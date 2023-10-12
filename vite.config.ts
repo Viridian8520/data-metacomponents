@@ -27,7 +27,7 @@ export default defineConfig({
     //           如果 ur1 是绝对 URL，则无论参数base是否存在，都将被忽略。
     //        */
     //       const proxyUrl = new URL(options.rewrite(req.url) || '', (options.target) as string)?.href || '';
-    //       console.log(proxyUrl);
+    //       //console.log(proxyUrl);
     //       req.headers["x-req-proxyUrl"] = proxyUrl;// 设置无效
     //       res.setHeader("x-res-proxyUrl", proxyUrl); // 有效
     //     },

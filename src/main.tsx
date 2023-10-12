@@ -24,10 +24,10 @@ const globalStyles = css`
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>
     <Global styles={globalStyles} />
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </>
 )
