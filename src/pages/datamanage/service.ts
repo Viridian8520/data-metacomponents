@@ -1,21 +1,22 @@
 import axios from 'axios'
 import { GetDeviceParams } from './type';
 
-export const getDevice = (params: GetDeviceParams) => new Promise((resolve, reject) => {
+export const getDevice = (params: GetDeviceParams) => {
   return axios({
     method: 'get',
     url: 'http://localhost:8080/rest/data/access/device/query',
     params: params,
   }).then(res => {
     if (res && res.status === 200) {
-      resolve(res);
+      // resolve(res);
+      return res;
     } else {
-      reject(res);
+      // reject(res);
     }
   }).catch(err => {
     console.log(err)
   });
-});
+};
 
 export const addDevice = (data: any) => new Promise((resolve, reject) => {
   return axios({
