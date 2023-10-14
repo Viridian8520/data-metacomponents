@@ -24,7 +24,7 @@ const BaseLayout: FC = (): ReactElement => {
     
     return (
         <Layout
-        css={{ height: '100%', overflow: 'hidden' }}
+        css={{ height: '100%', overflow: 'hidden',width:"100%" }}
         >
         <Header
             css={{
