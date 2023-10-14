@@ -52,11 +52,8 @@ export const deleteDevice = (data: any) => new Promise((resolve, reject) => {
 export const uploadFile = (data: any) => new Promise((resolve, reject) => {
   return axios({
     method: 'post',
-    url: 'http://localhost:8080/rest/data/access/file/upload',
+    url: 'http://8.134.59.53:8080/rest/data/access/file/upload',
     data: data,
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
   }).then(res => {
     if (res && res.status === 200) {
       resolve(res);

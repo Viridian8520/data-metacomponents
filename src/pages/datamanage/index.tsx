@@ -8,17 +8,13 @@ import AddDeviceModal from './addDeviceModal';
 
 const props: UploadProps = {
   action: 'http://localhost:8080/rest/data/access/file/upload',
-  customRequest: (options) => {
+  customRequest: (options: any) => {
     let formData = new FormData();
     formData.append("file", options.file);
     uploadFile(formData).then(res => {
-      console.log(res);
+      options.onSuccess(res, options.file);
+      message.success("上传成功！")
     })
-  },
-  onChange({ file, fileList }) {
-    if (file.status !== 'uploading') {
-      console.log(file, fileList);
-    }
   },
 };
 
