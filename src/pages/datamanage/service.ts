@@ -4,7 +4,7 @@ import { GetDeviceParams } from './type';
 export const getDevice = (params: GetDeviceParams) => {
   return axios({
     method: 'get',
-    url: 'http://localhost:8080/rest/data/access/device/query',
+    url: 'http://8.134.59.53:8080/rest/data/access/device/query',
     params: params,
   }).then(res => {
     if (res && res.status === 200) {
@@ -21,7 +21,7 @@ export const getDevice = (params: GetDeviceParams) => {
 export const addDevice = (data: any) => new Promise((resolve, reject) => {
   return axios({
     method: 'post',
-    url: 'http://localhost:8080/rest/data/access/device/action/add',
+    url: 'http://8.134.59.53:8080/rest/data/access/device/action/add',
     data: data,
   }).then(res => {
     if (res && res.status === 200) {
@@ -37,7 +37,7 @@ export const addDevice = (data: any) => new Promise((resolve, reject) => {
 export const deleteDevice = (data: any) => new Promise((resolve, reject) => {
   return axios({
     method: 'post',
-    url: 'http://localhost:8080/rest/data/access/device/action/delete',
+    url: 'http://8.134.59.53:8080/rest/data/access/device/action/delete',
     data: data,
   }).then(res => {
     if (res && res.status === 200) {

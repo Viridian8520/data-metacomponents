@@ -3,16 +3,16 @@ import type { TabsProps } from 'antd';
 import ProTable from "@/pages/datafusion/view/ProTable";
 // import type { FC } from "react";
 
-const onChange = (key: string) => {
+const onChange = (_key: string) => {
   // console.log(key);
 };
 
-enum urls{
-      'production' = "production" ,
-     'sale' = 'sale',
-      'wealth' = 'wealth',
-     'staff' = 'staff',
-     'convey' = 'convey',
+enum urls {
+  'production' = "production",
+  'sale' = 'sale',
+  'wealth' = 'wealth',
+  'staff' = 'staff',
+  'convey' = 'convey',
 
 }
 console.log(urls['production' as keyof typeof urls]);
@@ -46,10 +46,10 @@ const items: TabsProps['items'] = [
   },
 ];
 
-const ProTab = ()=>{
-  return(
-  <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+const ProTab = () => {
+  return (
+    <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
   )
 }
 
-export default ProTab ;
+export default ProTab;

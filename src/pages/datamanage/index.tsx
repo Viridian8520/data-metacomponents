@@ -7,7 +7,7 @@ import style from './index.module.css'
 import AddDeviceModal from './addDeviceModal';
 
 const props: UploadProps = {
-  action: 'http://localhost:8080/rest/data/access/file/upload',
+  action: 'http://8.134.59.53:8080/rest/data/access/file/upload',
   customRequest: (options: any) => {
     let formData = new FormData();
     formData.append("file", options.file);

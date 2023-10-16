@@ -14,89 +14,99 @@ interface DataType {
   updateTime: number;
 }
 
+// 格式化事件时间戳
+const formatDate = (timestamp: number): string => {
+  const date = new Date(timestamp * 1000); // 将时间戳转换为Date对象
+  const year = date.getFullYear();
+  const month: any = (date.getMonth() + 1).toString().padStart(2, '0'); // 月份从0开始，需要加1，并补0
+  const day: any = (date.getDate() + 1).toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`
+}
+
 const columns: ColumnsType<DataType> = [
-    // {
-    //     title: 'id',
-    //     dataIndex: 'id',
-    //     key: 'id',
-    //   },
-      {
-        title: 'corporation',
-        dataIndex: 'corporation',
-        key: 'corporation',
-      },
-      {
-        title: 'categories',
-        dataIndex: 'categories',
-        key: 'categories',
-      },
-      {
-        title: 'positions',
-        dataIndex: 'positions',
-        key: 'positions',
-      },
-      {
-        title: 'skill',
-        dataIndex: 'skill',
-        key: 'skill',
-      },
-      {
-        title: 'amount',
-        dataIndex: 'amount',
-        key: 'amount',
-      },
-      {
-        title: 'eventTime',
-        dataIndex: 'eventTime',
-        key: 'eventTime',
-      },
-      {
-        title: 'updateTime',
-        dataIndex: 'updateTime',
-        key: 'updateTime',
-      }
+  // {
+  //     title: 'id',
+  //     dataIndex: 'id',
+  //     key: 'id',
+  //   },
+  {
+    title: 'corporation',
+    dataIndex: 'corporation',
+    key: 'corporation',
+  },
+  {
+    title: 'categories',
+    dataIndex: 'categories',
+    key: 'categories',
+  },
+  {
+    title: 'positions',
+    dataIndex: 'positions',
+    key: 'positions',
+  },
+  {
+    title: 'skill',
+    dataIndex: 'skill',
+    key: 'skill',
+  },
+  {
+    title: 'amount',
+    dataIndex: 'amount',
+    key: 'amount',
+  },
+  {
+    title: 'eventTime',
+    dataIndex: 'eventTime',
+    key: 'eventTime',
+    render: (text: number) => {
+      const time: string = formatDate(text);
+      return time;
+    }
+  },
 
 ];
 
 interface Iprops {
-    url :string;
+  url: string;
 }
 
-const App: React.FC<Iprops> = ({url}:Iprops) => {
+const App: React.FC<Iprops> = ({ url }: Iprops) => {
 
-    const [data,setData] = useState<DataType[]>([]);
-    console.log(url);
-    
-useEffect(()=>{
-    fetch(`http://localhost:8080/rest/data/element/${url}/fusion/query?statement=&types=1&limit=20&offset=0`).then((res)=>{
-        // console.log(res);
-            
-        return res.json()
-    
-    }).then((res)=>{
-            const newData = res[`${url}s`];
-            const nextData:DataType[] = newData.map((item:DataType)=>{
-                if(!item["positions"]){
-                    item = {
-                        ...item,
-                        positions:1,
-                        skill:"车机系统开发",
-                        amount:100
-                    }
-                }
-                return item
-                
-                
-            });
-            console.log(nextData);
-            
-            setData(nextData);
+  const [data, setData] = useState<DataType[]>([]);
+  console.log(url);
+
+  useEffect(() => {
+    fetch(`http://8.134.59.53:8080/rest/data/element/${url}/fusion/query?statement=&types=1&limit=20&offset=0`).then((res) => {
+      // console.log(res);
+
+      return res.json()
+
+    }).then((res) => {
+      const newData = res[`${url}s`];
+      const nextData: DataType[] = newData.map((item: DataType) => {
+        if (!item["positions"]) {
+          item = {
+            ...item,
+            positions: 1,
+            skill: "车机系统开发",
+            amount: 100
+          }
+        }
+        return item
+
+
+      });
+      console.log(nextData);
+
+      setData(nextData);
     })
-},[])
+  }, [])
 
 
-return <>
-<Table columns={columns} dataSource={data} />
-</>};
+  return <>
+    <Table columns={columns} dataSource={data} />
+  </>
+};
 
 export default App;
