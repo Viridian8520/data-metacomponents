@@ -18,21 +18,25 @@ export const getDevice = (params: GetDeviceParams) => {
   });
 };
 
-export const addDevice = (data: any) => new Promise((resolve, reject) => {
+export const addDevice = (data: any) => {
   return axios({
     method: 'post',
     url: 'http://8.134.59.53:8080/rest/data/access/device/action/add',
     data: data,
+    headers: {
+      'Content-Type': 'application/json'
+    }
   }).then(res => {
     if (res && res.status === 200) {
-      resolve(res);
+      // resolve(res);
+      return res;
     } else {
-      reject(res);
+      // reject(res);
     }
   }).catch(err => {
     console.log(err)
   });
-});
+};
 
 export const deleteDevice = (data: any) => new Promise((resolve, reject) => {
   return axios({
@@ -65,3 +69,36 @@ export const uploadFile = (data: any) => new Promise((resolve, reject) => {
     console.log(err)
   });
 });
+
+export const getTableData = (params: any) => {
+  return axios({
+    method: 'get',
+    url: 'http://8.134.59.53:8080/rest/data/access/original/query',
+    params: params,
+  }).then(res => {
+    if (res && res.status === 200) {
+      // resolve(res);
+      return res;
+    } else {
+      // reject(res);
+    }
+  }).catch(err => {
+    console.log(err)
+  });
+};
+
+export const getCsv = () => {
+  return axios({
+    method: 'get',
+    url: '/数据模板.csv',
+  }).then(res => {
+    if (res && res.status === 200) {
+      // resolve(res);
+      return res;
+    } else {
+      // reject(res);
+    }
+  }).catch(err => {
+    console.log(err)
+  });
+};

@@ -31,32 +31,32 @@ const columns: ColumnsType<DataType> = [
   //     key: 'id',
   //   },
   {
-    title: 'corporation',
+    title: '企业名称',
     dataIndex: 'corporation',
     key: 'corporation',
   },
   {
-    title: 'categories',
+    title: '类别',
     dataIndex: 'categories',
     key: 'categories',
   },
   {
-    title: 'positions',
+    title: '员工职位',
     dataIndex: 'positions',
     key: 'positions',
   },
   {
-    title: 'skill',
+    title: '员工技能',
     dataIndex: 'skill',
     key: 'skill',
   },
   {
-    title: 'amount',
+    title: '员工数量',
     dataIndex: 'amount',
     key: 'amount',
   },
   {
-    title: 'eventTime',
+    title: '事件时间',
     dataIndex: 'eventTime',
     key: 'eventTime',
     render: (text: number) => {
