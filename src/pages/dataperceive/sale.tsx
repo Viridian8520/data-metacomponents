@@ -11,7 +11,7 @@ const Wealth: FC = (): ReactElement => {
     const [firOpt,setFirOpt] = useState<EChartOption[]> ([])
 
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/sale/graph/yearSale`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/sale/graph/yearSale`).then((res)=>{
 
         return res.json()
     
@@ -65,7 +65,7 @@ const Wealth: FC = (): ReactElement => {
       const [secOpt , setSecOpt] = useState<EChartOption[]> ( []);
 
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/sale/graph/yearSale`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/sale/graph/yearSale`).then((res)=>{
 
         return res.json()
     
@@ -121,7 +121,7 @@ const Wealth: FC = (): ReactElement => {
       
       const [thrOpt , setThrOpt] = useState<EChartOption[]> ( []);
       useEffect(()=>{
-        fetch(`http://10.30.0.79:8080/rest/data/element/production/graph/production`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/production/graph/production`).then((res)=>{
 
         return res.json()
     
@@ -192,7 +192,7 @@ const Wealth: FC = (): ReactElement => {
       const [fourOpt,setFourOpt] = useState<EChartOption[]>([])
 
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/production/graph/category`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/production/graph/category`).then((res)=>{
 
         return res.json()
     
@@ -334,7 +334,7 @@ const Wealth: FC = (): ReactElement => {
   
       const [sevenOpt,setSeventhOpt] = useState<EChartOption[]>([])
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/sale/graph/export`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/sale/graph/export`).then((res)=>{
 
         return res.json()
     
@@ -399,7 +399,7 @@ const Wealth: FC = (): ReactElement => {
    
       // const [eightOpt,setEightOpt] = useState<EChartOption[]>([])
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/sale/graph/export`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/sale/graph/export`).then((res)=>{
 
         return res.json()
     

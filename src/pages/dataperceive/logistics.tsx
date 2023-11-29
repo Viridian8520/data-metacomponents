@@ -8,7 +8,7 @@ const Logistics: FC = (): ReactElement => {
     const [firOpt,setFirOpt] = useState<EChartOption[]> ([])
 
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/convey/graph/convey`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/convey/graph/convey`).then((res)=>{
 
         return res.json()
     
@@ -90,7 +90,7 @@ const Logistics: FC = (): ReactElement => {
       const [secOpt,setSecOpt] = useState<EChartOption[]> ( [])
 
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/convey/graph/goods/`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/convey/graph/goods/`).then((res)=>{
 
         return res.json()
     

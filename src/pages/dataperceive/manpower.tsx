@@ -6,7 +6,7 @@ import { Space } from "antd";
 
 const ManPower: FC = (): ReactElement =>{
   useEffect(()=>{
-    fetch(`http://10.30.0.79:8080/rest/data/element/production/graph/production`).then((res)=>{
+    fetch(`http://8.134.59.53:8080/rest/data/element/production/graph/production`).then((res)=>{
 
     return res.json()
 
@@ -78,7 +78,7 @@ setThrOpt(newData);
   const [fourOpt,setFourOpt] = useState<EChartOption[]>([])
 
       useEffect(()=>{
-        fetch(`http://10.30.6.179:8080/rest/data/element/production/graph/category`).then((res)=>{
+        fetch(`http://8.134.59.53:8080/rest/data/element/production/graph/category`).then((res)=>{
 
         return res.json()
     
