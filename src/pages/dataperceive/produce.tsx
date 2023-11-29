@@ -1,37 +1,78 @@
 /* @jsxImportSource @emotion/react */
-import { useState, type FC, type ReactElement } from 'react';
-import { EChartOption } from "echarts";
+import { useState, type FC, type ReactElement, useEffect, useCallback, ReactNode } from 'react';
+import { EChartOption, use } from "echarts";
 import { Charts } from "@/components/Charts";
+import { Select, Space } from 'antd';
+
+
+let newNums = {};
+
+
+
 
 
 const Wealth: FC = (): ReactElement => {
 
+  const [enterprise, setEnterprise] = useState<Record<string, string>[]>([]);
+  const [arrayNum, setArrayNum] = useState<number[]>([]);
 
-  const [firOpt, _setFirOpt] = useState<EChartOption>({
-    xAxis: {
-      type: 'category',
-      data: ['2016年', '2017年', '2018年', '2019年', '2020年']
-    },
+  useEffect(() => {
+    fetch(`http://8.134.59.53:8080/rest/data/element/production/perception/trend/query?time=2022`).then((res) => {
 
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        formatter: function (value: string) {
-          return `${value}万辆`
+      return res.json()
+
+    }).then((res) => {
+      let arr = [];
+      for (let key in res) {
+        arr.push(key)
+      }
+      let newArr = arr.map((item) => {
+        return {
+          label: item,
+          value: item
         }
-      }
 
-    },
-    series: [
-      {
-        data: [2693.61, 2780.93, 2614.16, 2572.07, 2593],
+      })
+      console.log(newArr);
+      setEnterprise(newArr);
+      newNums = res;
+      console.log(res);
+
+    })
+  }, [])
+
+  const handleChange = useCallback((value: string) => {
+    console.log(`selected ${value}`);
+    let specifNums: Record<string, number>[] = newNums[value as keyof typeof newNums];
+    let newA = specifNums.map((item) => {
+      return item.quantity;
+    });
+    setArrayNum(newA);
+    console.log(newA);
+    Object.assign({},)
+
+
+  }, []);
+  useEffect(() => {
+    console.log(arrayNum);
+
+    let newa = Object.assign({ ...secOpt }, {
+      series: [{
+        data: arrayNum,
         type: 'line',
-        smooth: true
-      }
-    ]
-  })
+        areaStyle: {}
+      }]
+    })
+    console.log(newa);
 
-  const [secOpt, _setSecOpt] = useState<EChartOption>({
+    setSecOpt(newa)
+  }, [arrayNum])
+
+
+
+
+
+  const [secOpt, setSecOpt] = useState<EChartOption>({
     xAxis: {
       type: 'category',
       boundaryGap: false,
@@ -55,99 +96,157 @@ const Wealth: FC = (): ReactElement => {
     ]
   });
 
-  const [thrOpt, _setThrOpt] = useState<EChartOption>({
-    title: {
-      text: '一汽汽车集团汽车产量'
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    legend: {},
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'value',
-      boundaryGap: [0, 0.01]
-    },
-    yAxis: {
-      type: 'category',
-      data: ['一汽奥迪', '一汽大众', '一汽丰田']
-    },
-    series: [
-      {
-        name: '2011',
-        type: 'bar',
-        data: [18203, 23489, 29034]
-      },
-      {
-        name: '2012',
-        type: 'bar',
-        data: [19325, 23438, 31000]
-      },
-    ]
-  });
 
-  const [fourOpt, _setFourOpt] = useState<EChartOption>({
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      top: '5%',
-      left: 'center'
-    },
-    series: [
-      {
-        name: 'Access From',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
-        },
-        label: {
-          show: false,
-          position: 'center'
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 40,
-            fontWeight: 'bold'
-          }
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: 748, name: '基础型' },
-          { value: 735, name: '交叉型' },
-          { value: 580, name: 'SUV' },
-          { value: 484, name: 'MPV' },
-        ]
-      }
-    ]
-  })
+
+  const [thrOpt, setThrOpt] = useState<EChartOption[]>([]);
+  useEffect(() => {
+    fetch(`http://8.134.59.53:8080/rest/data/element/production/graph/production`).then((res) => {
+
+      return res.json()
+
+    }).then(res => {
+      let data = res.data;
+      let newData = data.map((item: { series: any[]; groupName: any; companyName: any; }) => {
+
+        item.series.forEach(item => {
+          return Object.assign(item, {
+            type: "bar"
+          })
+        })
+
+
+        let template = {
+          // title: {
+          //   text: '一汽汽车集团汽车产量'
+          // },
+          title: { text: item.groupName }, //根据接口返回的
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+          legend: {},
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01]
+          },
+          yAxis: {
+            type: 'category',
+            //   data: ['一汽奥迪', '一汽大众', '一汽丰田']
+            data: item.companyName  //根据接口返回的
+          },
+          series:
+            item.series
+          // [
+          //   {
+          //     // name: '乘用车',
+          //     type: 'bar',
+          //     // data: [12313, 23489, 29034]
+          //   },
+          //   {
+          //     // name: '商用车',
+          //     type: 'bar',
+          //     // data: [19325, 23428, 31000]
+          //   },
+          // ]
+        }
+        return template;
+      })
+
+      setThrOpt(newData);
+
+
+    })
+  }, [])
+
+
+
+
+
+
+  const [fourOpt, setFourOpt] = useState<EChartOption[]>([])
+
+  useEffect(() => {
+    fetch(`http://8.134.59.53:8080/rest/data/element/production/graph/category`).then((res) => {
+
+      return res.json()
+
+    }).then(res => {
+      let data = res.data;
+      let newData = data.map((item: { series: any[]; }) => {
+
+        // item.series.forEach(item=>{
+        //     return Object.assign(item,{
+        //         type:"bar"
+        //     })
+        // })
+
+
+        let template = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '5%',
+            left: 'center'
+          },
+          series: [
+            {
+              name: 'Access From',
+              type: 'pie',
+              radius: ['40%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2
+              },
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: 40,
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: item.series
+            }
+          ]
+        }
+        return template;
+      })
+
+      setFourOpt(newData);
+
+
+    })
+  }, [])
+
+
 
 
 
   return <>
+    <Select
+      defaultValue="请选择"
+      style={{ width: 120 }}
+      onChange={handleChange}
+      options={enterprise}
+    />
     <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-      <Charts
-        options={firOpt}
-        style={{
-          height: "500px",
-          width: "45%",
-        }}
-      />
       <Charts
         options={secOpt}
         style={{
@@ -155,62 +254,37 @@ const Wealth: FC = (): ReactElement => {
           width: "45%",
         }}
       />
-      <Charts
-        options={thrOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
-      <Charts
-        options={thrOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
-      <Charts
-        options={thrOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
-      <Charts
-        options={thrOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
-      <Charts
-        options={fourOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
-      <Charts
-        options={fourOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
-      <Charts
-        options={fourOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
-      <Charts
-        options={fourOpt}
-        style={{
-          height: "400px",
-          width: "45%",
-        }}
-      />
+      {
+        thrOpt.map((item) => {
+          return (
+            <>
+              <Charts
+                options={item}
+                style={{
+                  height: "400px",
+                  width: "45%",
+                }}
+              />
+            </>)
+        }
+        )
+      }
+
+      {
+        fourOpt.map((item) => {
+          return (
+            <>
+              <Charts
+                options={item}
+                style={{
+                  height: "400px",
+                  width: "45%",
+                }}
+              />
+            </>)
+        }
+        )
+      }
     </div>
 
   </>
