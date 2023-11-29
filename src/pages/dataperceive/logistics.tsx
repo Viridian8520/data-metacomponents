@@ -1,143 +1,177 @@
 /* @jsxImportSource @emotion/react */
-import { useState, type FC, type ReactElement } from 'react';
+import { useState, type FC, type ReactElement, useEffect } from 'react';
 import { EChartOption } from "echarts";
 import { Charts } from "@/components/Charts";
 
 const Logistics: FC = (): ReactElement => {
-  const [firOpt, _setFirOpt] = useState<EChartOption>({
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross',
-        crossStyle: {
-          color: '#999'
+  const [firOpt, setFirOpt] = useState<EChartOption[]>([])
+
+  useEffect(() => {
+    fetch(`http://8.134.59.53:8080/rest/data/element/convey/graph/convey`).then((res) => {
+
+      return res.json()
+
+    }).then(res => {
+      let data = res.data;
+      let newData = data.map((item: {
+        item: any;
+        times: any;
+        cost: any; series: any[];
+      }) => {
+
+        // item.series.forEach(item=>{
+        //     return Object.assign(item,{
+        //         type:"bar"
+        //     })
+        // })
+
+
+        let template = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              crossStyle: {
+                color: '#999'
+              }
+            }
+          },
+          legend: {
+            data: ['类型(万辆)', '花费']
+          },
+          xAxis: [
+            {
+              type: 'category',
+              data: item.item,
+              axisPointer: {
+                type: 'shadow'
+              }
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              name: '类型(万辆)'
+            },
+            {
+              type: 'value',
+              name: '花费',
+              min: 50,
+              max: 200,
+              interval: 20,
+              // yAxisIndex: 1,
+            }
+          ],
+          series: [
+            {
+              name: '类型(万辆)',
+              type: 'bar',
+              data: item.times,
+            },
+            {
+              name: '花费',
+              type: 'line',
+              yAxisIndex: 1,
+              data: item.cost,
+
+            },
+          ]
         }
-      }
-    },
-    legend: {
-      data: ['类型(万辆)', '花费']
-    },
-    xAxis: [
-      {
-        type: 'category',
-        data: ['铁路', '公路', '航空', '水路', '管道'],
-        axisPointer: {
-          type: 'shadow'
+        return template;
+      })
+
+      setFirOpt(newData);
+
+
+    })
+  }, [])
+
+  const [secOpt, setSecOpt] = useState<EChartOption[]>([])
+
+  useEffect(() => {
+    fetch(`http://8.134.59.53:8080/rest/data/element/convey/graph/goods/`).then((res) => {
+
+      return res.json()
+
+    }).then(res => {
+      let data = res.data;
+      let newData = data.map((item: {
+        transport: any;
+        inventory: any;
+        item: any;
+        times: any;
+        cost: any; series: any[];
+      }) => {
+
+        // item.series.forEach(item=>{
+        //     return Object.assign(item,{
+        //         type:"bar"
+        //     })
+        // })
+
+
+        let template = {
+          xAxis: {
+
+          },
+          yAxis: { data: item.item },
+          series: [
+            {
+              data: item.transport,
+              type: 'bar',
+              stack: 'x'
+            },
+            {
+              data: item.inventory,
+              type: 'bar',
+              stack: 'x'
+            }
+          ]
         }
-      }
-    ],
-    yAxis: [
-      {
-        type: 'value',
-        name: '类型(万辆)'
-      },
-      {
-        type: 'value',
-        name: '花费',
-        min: 50,
-        max: 100,
-        interval: 20,
-        // yAxisIndex: 1,
-      }
-    ],
-    series: [
-      {
-        name: '类型(万辆)',
-        type: 'bar',
-        data: [
-          1500, 1300, 1100, 900, 700
-        ],
-      },
-      {
-        name: '花费',
-        type: 'line',
-        yAxisIndex: 1,
-        data: [
-          50, 60, 70, 80, 100
-        ],
+        return template;
+      })
 
-      },
-    ]
-  })
+      setSecOpt(newData);
 
-  const [secOpt, _setSecOpt] = useState<EChartOption>({
-    xAxis: {
 
-    },
-    yAxis: { data: ['冷却系统', '燃油电喷及点火系统', '曲柄连杆机构', '进排气系统', '发动机'] },
-    series: [
-      {
-        data: [10, 22, 28, 43, 49],
-        type: 'bar',
-        stack: 'x'
-      },
-      {
-        data: [5, 4, 3, 5, 10],
-        type: 'bar',
-        stack: 'x'
-      }
-    ]
-  })
+    })
+  }, [])
 
   return (
     <>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-        <Charts
-          options={firOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-        <Charts
-          options={firOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-        <Charts
-          options={firOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-        <Charts
-          options={firOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-        <Charts
-          options={secOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-        <Charts
-          options={secOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-        <Charts
-          options={secOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-        <Charts
-          options={secOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
+        {
+          firOpt.map((item) => {
+            return (
+              <>
+                <Charts
+                  options={item}
+                  style={{
+                    height: "400px",
+                    width: "45%",
+                  }}
+                />
+              </>)
+          }
+          )
+        }
+
+        {
+          secOpt.map((item) => {
+            return (
+              <>
+                <Charts
+                  options={item}
+                  style={{
+                    height: "400px",
+                    width: "45%",
+                  }}
+                />
+              </>)
+          }
+          )
+        }
+
       </div>
     </>
   )

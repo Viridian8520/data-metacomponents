@@ -85,14 +85,14 @@ const App: React.FC<Iprops> = ({ url }: Iprops) => {
     }).then((res) => {
       const newData = res[`${url}s`];
       const nextData: DataType[] = newData.map((item: DataType) => {
-        if (!item["positions"]) {
-          item = {
-            ...item,
-            positions: 1,
-            skill: "车机系统开发",
-            amount: 100
-          }
-        }
+        // if(!item["positions"]){
+        //     item = {
+        //         ...item,
+        //         positions:1,
+        //         skill:"车机系统开发",
+        //         amount:100
+        //     }
+        // }
         return item
 
 
