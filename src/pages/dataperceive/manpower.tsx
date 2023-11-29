@@ -1,14 +1,31 @@
 /* @jsxImportSource @emotion/react */
-import { useState, type FC, type ReactElement } from 'react';
+import { useState, type FC, type ReactElement, useEffect ,} from 'react';
 import { EChartOption } from "echarts";
 import { Charts } from "@/components/Charts";
 import { Space } from "antd";
 
 const ManPower: FC = (): ReactElement =>{
-    const [thrOpt , setThrOpt] = useState<EChartOption> ( {
-        title: {
-          text: '一汽汽车集团汽车产量'
-        },
+  useEffect(()=>{
+    fetch(`http://10.30.0.79:8080/rest/data/element/production/graph/production`).then((res)=>{
+
+    return res.json()
+
+}).then(res=>{
+  let data=res.data;
+  let newData = data.map((item: { series: any[]; groupName: any; companyName: any; })=>{
+
+    item.series.forEach(item=>{
+        return Object.assign(item,{
+            type:"bar"
+        })
+    })
+
+
+    let template = {
+        // title: {
+        //   text: '一汽汽车集团汽车产量'
+        // },
+        title:{text:item.groupName}, //根据接口返回的
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -28,152 +45,133 @@ const ManPower: FC = (): ReactElement =>{
         },
         yAxis: {
           type: 'category',
-          data: ['一汽奥迪', '一汽大众', '一汽丰田']
+        //   data: ['一汽奥迪', '一汽大众', '一汽丰田']
+        data:item.companyName  //根据接口返回的
         },
-        series: [
-          {
-            name: '2011',
-            type: 'bar',
-            data: [18203, 23489, 29034]
-          },
-          {
-            name: '2012',
-            type: 'bar',
-            data: [19325, 23438, 31000]
-          },
-        ]
-      });
+        series: 
+        item.series
+        // [
+        //   {
+        //     // name: '乘用车',
+        //     type: 'bar',
+        //     // data: [12313, 23489, 29034]
+        //   },
+        //   {
+        //     // name: '商用车',           
+        //     type: 'bar',
+        //     // data: [19325, 23428, 31000]
+        //   },
+        // ]
+      }
+      return template;
+})
 
-      const [fourOpt,setFourOpt] = useState<EChartOption>({
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '5%',
-          left: 'center'
-        },
-        series: [
-          {
-            name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
+setThrOpt(newData);
+
+  
+})
+  },[])
+
+
+  const [thrOpt , setThrOpt] = useState<EChartOption[]> ( []);
+
+  const [fourOpt,setFourOpt] = useState<EChartOption[]>([])
+
+      useEffect(()=>{
+        fetch(`http://10.30.6.179:8080/rest/data/element/production/graph/category`).then((res)=>{
+
+        return res.json()
+    
+    }).then(res=>{
+      let data=res.data;
+      let newData = data.map((item: { series: any[];})=>{
+  
+        // item.series.forEach(item=>{
+        //     return Object.assign(item,{
+        //         type:"bar"
+        //     })
+        // })
+    
+    
+        let template = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '5%',
+            left: 'center'
+          },
+          series: [
+            {
+              name: 'Access From',
+              type: 'pie',
+              radius: ['40%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2
+              },
               label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              { value: 748, name: '基础型' },
-              { value: 735, name: '交叉型' },
-              { value: 580, name: 'SUV' },
-              { value: 484, name: 'MPV' },
-            ]
-          }
-        ]
-      })
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: 40,
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: item.series
+            }
+          ]
+        }
+          return template;
+    })
+  
+    setFourOpt(newData);
+  
+      
+    })
+      },[])
 return (
     <>
     <div style={{display:"flex", flexWrap:"wrap",justifyContent:"center"}}>
   
-         <Charts
-          options={thrOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
+     {
+        thrOpt.map((item)=>{
+          return(
+          <>
           <Charts
-          options={thrOpt}
+          options={item}
           style={{
             height: "400px",
             width: "45%",
           }}
         />
+        </>)}
+        )
+        }
+        
+        {
+        fourOpt.map((item)=>{
+          return(
+          <>
           <Charts
-          options={thrOpt}
+          options={item}
           style={{
             height: "400px",
             width: "45%",
           }}
         />
-          <Charts
-          options={thrOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-         <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-         <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-         <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-         <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-          <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-         <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-         <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
-         <Charts
-          options={fourOpt}
-          style={{
-            height: "400px",
-            width: "45%",
-          }}
-        />
+        </>)}
+        )
+        }
+      
         </div>
 
     </>
