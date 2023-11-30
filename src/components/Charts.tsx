@@ -31,7 +31,7 @@ const Charts: React.FC<BaseChartProps> = ({ options, style }) => {
 
   useEffect(() => {
     initChart();
-  }, [options,style])
+  }, [options, style])
 
   return <div ref={chartRef} style={style} />
 };

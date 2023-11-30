@@ -414,7 +414,7 @@ interface Iprops {
 const App: React.FC<Iprops> = ({ url }: Iprops) => {
 
   const [data, setData] = useState<DataType[]>([]);
-  console.log(url);
+  // console.log(url);
 
   useEffect(() => {
     fetch(`http://8.134.59.53:8080/rest/data/element/${url}/fusion/query?statement=&types=1&limit=999&offset=0`).then((res) => {
@@ -437,7 +437,7 @@ const App: React.FC<Iprops> = ({ url }: Iprops) => {
 
 
       });
-      console.log(nextData);
+      // console.log(nextData);
 
       setData(nextData);
     })

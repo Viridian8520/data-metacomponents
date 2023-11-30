@@ -417,20 +417,20 @@ const Wealth: FC = (): ReactElement => {
         //     })
         // })
         let data1: number = 0;
-        console.log(item.data[0].data);
+        // console.log(item.data[0].data);
 
         item.data[0].data.map((it: any) => {
-          console.log(it);
+          // console.log(it);
 
           data1 += it;
-          console.log(data1);
+          // console.log(data1);
 
         })
         let data2: any = 0;
         item.data[1].data.map((it: any) => {
           data2 += it;
         })
-        console.log(data1, data2);
+        // console.log(data1, data2);
 
 
         let template = {
@@ -475,10 +475,10 @@ const Wealth: FC = (): ReactElement => {
   }, [])
 
 
-  const resortCharts = (barCharts: Array<any>, pieCharts: Array<any>) => {
+  const resortCharts = () => {
     const allCharts = [];
-    for (let i = 0; i < barCharts.length; i++) {
-      allCharts.push(barCharts[i], pieCharts[i]);
+    for (let i = 0; i < thrOpt.length; i++) {
+      allCharts.push(thrOpt[i], fourOpt[i]);
     }
     return allCharts;
   }
@@ -519,7 +519,7 @@ const Wealth: FC = (): ReactElement => {
       }
 
       {
-        resortCharts(thrOpt, fourOpt).map((item) => {
+        resortCharts().map((item) => {
           return (
             <>
               <Charts

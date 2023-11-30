@@ -33,28 +33,28 @@ const Wealth: FC = (): ReactElement => {
         }
 
       })
-      console.log(newArr);
+      // console.log(newArr);
       setEnterprise(newArr);
       newNums = res;
-      console.log(res);
+      // console.log(res);
 
     })
   }, [])
 
   const handleChange = useCallback((value: string) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     let specifNums: Record<string, number>[] = newNums[value as keyof typeof newNums];
     let newA = specifNums.map((item) => {
       return item.quantity;
     });
     setArrayNum(newA);
-    console.log(newA);
+    // console.log(newA);
     Object.assign({},)
 
 
   }, []);
   useEffect(() => {
-    console.log(arrayNum);
+    // console.log(arrayNum);
 
     let newa = Object.assign({ ...secOpt }, {
       series: [{
@@ -63,7 +63,7 @@ const Wealth: FC = (): ReactElement => {
         areaStyle: {}
       }]
     })
-    console.log(newa);
+    // console.log(newa);
 
     setSecOpt(newa)
   }, [arrayNum])
@@ -236,10 +236,10 @@ const Wealth: FC = (): ReactElement => {
   }, [])
 
 
-  const resortCharts = (barCharts: Array<any>, pieCharts: Array<any>) => {
+  const resortCharts = () => {
     const allCharts = [];
-    for (let i = 0; i < barCharts.length; i++) {
-      allCharts.push(barCharts[i], pieCharts[i]);
+    for (let i = 0; i < thrOpt.length; i++) {
+      allCharts.push(thrOpt[i], fourOpt[i]);
     }
     return allCharts;
   }
@@ -263,7 +263,7 @@ const Wealth: FC = (): ReactElement => {
     </div>
     <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
       {
-        resortCharts(thrOpt, fourOpt).map((item) => {
+        resortCharts().map((item) => {
           return (
             <>
               <Charts
