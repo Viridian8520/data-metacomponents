@@ -1,7 +1,7 @@
 /* @jsxImportSource @emotion/react */
 import { Button, Card, Form, Input, Select, Space, Table, Upload, UploadProps, message } from 'antd';
 import { FC, ReactElement, Fragment, useRef, useState, useEffect } from 'react';
-import { DownloadOutlined, FileExcelTwoTone, UploadOutlined } from '@ant-design/icons'
+import { CloudServerOutlined, DownloadOutlined, FileExcelTwoTone, UploadOutlined } from '@ant-design/icons'
 import { deleteDevice, getCsv, getDevice, getTableData, uploadFile } from './service';
 import style from './index.module.css'
 import AddDeviceModal from './addDeviceModal';
@@ -417,8 +417,13 @@ const DataManage: FC = (): ReactElement => {
               }
               style={{ width: 350 }}
             >
-              <div>ip地址：{item.ip}</div>
-              <div>端口号：{item.port}</div>
+              <div style={{ display: 'flex', flexDirection: 'row' }} >
+                <CloudServerOutlined style={{ fontSize: '34px', marginLeft: '10px' }} />
+                <div style={{ marginLeft: '20px' }} >
+                  <div>ip地址：{item.ip}</div>
+                  <div>端口号：{item.port}</div>
+                </div>
+              </div>
             </Card>
           ))}
         </Space>
@@ -477,7 +482,7 @@ const DataManage: FC = (): ReactElement => {
           </div>
         </Card>
       </div >
-      <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '20px' }} >人力链数据</div>
+      <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '20px' }} >产业链原始数据</div>
       <Table
         scroll={{
           x: true,

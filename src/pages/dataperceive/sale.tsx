@@ -478,7 +478,9 @@ const Wealth: FC = (): ReactElement => {
   const resortCharts = () => {
     const allCharts = [];
     for (let i = 0; i < thrOpt.length; i++) {
-      allCharts.push(thrOpt[i], fourOpt[i]);
+      if (fourOpt[i]) {
+        allCharts.push(thrOpt[i], fourOpt[i]);
+      }
     }
     return allCharts;
   }
