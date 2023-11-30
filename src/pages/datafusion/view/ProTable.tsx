@@ -24,7 +24,7 @@ const formatDate = (timestamp: number): string => {
   return `${year}-${month}-${day}`
 }
 
-const columns: ColumnsType<DataType> = [
+const columnsStaff: ColumnsType<DataType> = [
   // {
   //     title: 'id',
   //     dataIndex: 'id',
@@ -67,6 +67,346 @@ const columns: ColumnsType<DataType> = [
 
 ];
 
+const columnsWealth = [
+  {
+    title: '单位名称',
+    dataIndex: 'corporation',
+    key: 'corporation',
+  },
+  {
+    title: '时间',
+    dataIndex: 'eventTime',
+    key: 'eventTime',
+    render: (text: number) => {
+      const date: string = formatDate(text);
+      return <span>{date}</span>
+    }
+  },
+  {
+    title: '研发支出',
+    dataIndex: 'research',
+    key: 'research',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '设备支出',
+    dataIndex: 'device',
+    key: 'device',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '生产支出',
+    dataIndex: 'production',
+    key: 'production',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '仓储支出',
+    dataIndex: 'storage',
+    key: 'storage',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '物料支出',
+    dataIndex: 'materiel',
+    key: 'materiel',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '运输支出',
+    dataIndex: 'transportation',
+    key: 'transportation',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '人员工资支出',
+    dataIndex: 'salary',
+    key: 'salary',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '总收入',
+    dataIndex: 'revenue',
+    key: 'revenue',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '利润',
+    dataIndex: 'profit',
+    key: 'profit',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '固定资产',
+    dataIndex: 'fixedAssets',
+    key: 'fixedAssets',
+    render: (text: number) => {
+      return <span >{text}</span>
+    }
+  },
+  {
+    title: '流动资产',
+    dataIndex: 'cashAssets',
+    key: 'cashAssets',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '融资',
+    dataIndex: 'finance',
+    key: 'finance',
+    render: (text: number) => {
+      return <span >{text}</span>
+    }
+  },
+];
+
+const columnsConvey = [
+  {
+    title: '单位名称',
+    dataIndex: 'corporation',
+    key: 'corporation',
+  },
+  {
+    title: '时间',
+    dataIndex: 'eventTime',
+    key: 'eventTime',
+    render: (text: number) => {
+      const date: string = formatDate(text);
+      return <span>{date}</span>
+    }
+  },
+  {
+    title: '运输工具',
+    dataIndex: 'categories',
+    key: 'categories',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '运输货物',
+    dataIndex: 'types',
+    key: 'types',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '运输量（万吨）',
+    dataIndex: 'quantity',
+    key: 'quantity',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '剩余库存（万吨）',
+    dataIndex: 'inventory',
+    key: 'inventory',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '运输里程（公里）',
+    dataIndex: 'mileage',
+    key: 'mileage',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '运输花费（万元）',
+    dataIndex: 'cost',
+    key: 'cost',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+];
+
+const columnsProduction = [
+  {
+    title: '单位名称',
+    dataIndex: 'corporation',
+    key: 'corporation',
+  },
+  {
+    title: '时间',
+    dataIndex: 'eventTime',
+    key: 'eventTime',
+    render: (text: number) => {
+      const date: string = formatDate(text);
+      return <span>{date}</span>
+    }
+  },
+  {
+    title: '产品类型',
+    dataIndex: 'categories',
+    key: 'categories',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '产品',
+    dataIndex: 'types',
+    key: 'types',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '产量（万吨）',
+    dataIndex: 'quantity',
+    key: 'quantity',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '生产费用（万元）',
+    dataIndex: 'cost',
+    key: 'cost',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '原产省份',
+    dataIndex: 'province',
+    key: 'province',
+    render: (text: string) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '原产国家',
+    dataIndex: 'country',
+    key: 'country',
+    render: (text: string) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '产品质量',
+    dataIndex: 'quality',
+    key: 'quality',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+];
+
+const columnsSale = [
+  {
+    title: '单位名称',
+    dataIndex: 'corporation',
+    key: 'corporation',
+  },
+  {
+    title: '时间',
+    dataIndex: 'eventTime',
+    key: 'eventTime',
+    render: (text: number) => {
+      const date: string = formatDate(text);
+      return <span>{date}</span>
+    }
+  },
+  {
+    title: '产品类型',
+    dataIndex: 'categories',
+    key: 'categories',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '销售产品',
+    dataIndex: 'types',
+    key: 'types',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '销量',
+    dataIndex: 'quantity',
+    key: 'quantity',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '销售营收',
+    dataIndex: 'income',
+    key: 'income',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '销售支出',
+    dataIndex: 'cost',
+    key: 'cost',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '销售省份',
+    dataIndex: 'province',
+    key: 'province',
+    render: (text: string) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '销售国家',
+    dataIndex: 'country',
+    key: 'country',
+    render: (text: string) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '库存',
+    dataIndex: 'inventory',
+    key: 'inventory',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+  {
+    title: '服务评价',
+    dataIndex: 'score',
+    key: 'score',
+    render: (text: number) => {
+      return <span>{text}</span>
+    }
+  },
+];
+
 interface Iprops {
   url: string;
 }
@@ -77,7 +417,7 @@ const App: React.FC<Iprops> = ({ url }: Iprops) => {
   console.log(url);
 
   useEffect(() => {
-    fetch(`http://8.134.59.53:8080/rest/data/element/${url}/fusion/query?statement=&types=1&limit=20&offset=0`).then((res) => {
+    fetch(`http://8.134.59.53:8080/rest/data/element/${url}/fusion/query?statement=&types=1&limit=999&offset=0`).then((res) => {
       // console.log(res);
 
       return res.json()
@@ -105,7 +445,22 @@ const App: React.FC<Iprops> = ({ url }: Iprops) => {
 
 
   return <>
-    <Table columns={columns} dataSource={data} />
+    <Table
+      columns={
+        url === 'staff' ?
+          columnsStaff :
+          url === 'wealth' ?
+            columnsWealth :
+            url === 'convey' ?
+              columnsConvey :
+              url === 'production' ?
+                columnsProduction :
+                url === 'sale' ?
+                  columnsSale :
+                  columnsStaff
+      }
+      dataSource={data}
+    />
   </>
 };
 

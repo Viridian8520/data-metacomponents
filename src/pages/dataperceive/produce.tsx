@@ -1,8 +1,8 @@
 /* @jsxImportSource @emotion/react */
-import { useState, type FC, type ReactElement, useEffect, useCallback, ReactNode } from 'react';
-import { EChartOption, use } from "echarts";
+import { useState, type FC, type ReactElement, useEffect, useCallback } from 'react';
+import { EChartOption } from "echarts";
 import { Charts } from "@/components/Charts";
-import { Select, Space } from 'antd';
+import { Select } from 'antd';
 
 
 let newNums = {};
@@ -236,7 +236,13 @@ const Wealth: FC = (): ReactElement => {
   }, [])
 
 
-
+  const resortCharts = (barCharts: Array<any>, pieCharts: Array<any>) => {
+    const allCharts = [];
+    for (let i = 0; i < barCharts.length; i++) {
+      allCharts.push(barCharts[i], pieCharts[i]);
+    }
+    return allCharts;
+  }
 
 
   return <>
@@ -254,7 +260,24 @@ const Wealth: FC = (): ReactElement => {
           width: "45%",
         }}
       />
+    </div>
+    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
       {
+        resortCharts(thrOpt, fourOpt).map((item) => {
+          return (
+            <>
+              <Charts
+                options={item}
+                style={{
+                  height: "400px",
+                  width: "45%",
+                }}
+              />
+            </>)
+        }
+        )
+      }
+      {/* {
         thrOpt.map((item) => {
           return (
             <>
@@ -284,7 +307,7 @@ const Wealth: FC = (): ReactElement => {
             </>)
         }
         )
-      }
+      } */}
     </div>
 
   </>

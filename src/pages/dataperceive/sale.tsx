@@ -475,7 +475,13 @@ const Wealth: FC = (): ReactElement => {
   }, [])
 
 
-
+  const resortCharts = (barCharts: Array<any>, pieCharts: Array<any>) => {
+    const allCharts = [];
+    for (let i = 0; i < barCharts.length; i++) {
+      allCharts.push(barCharts[i], pieCharts[i]);
+    }
+    return allCharts;
+  }
 
 
   return <>
@@ -511,7 +517,24 @@ const Wealth: FC = (): ReactElement => {
         }
         )
       }
+
       {
+        resortCharts(thrOpt, fourOpt).map((item) => {
+          return (
+            <>
+              <Charts
+                options={item}
+                style={{
+                  height: "400px",
+                  width: "45%",
+                }}
+              />
+            </>)
+        }
+        )
+      }
+
+      {/* {
         thrOpt.map((item) => {
           return (
             <>
@@ -541,7 +564,7 @@ const Wealth: FC = (): ReactElement => {
             </>)
         }
         )
-      }
+      } */}
       {/* {
         fifOpt.map((item)=>{
           return(
